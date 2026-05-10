@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Departments</title>
+
+    <style>
+        /* Navbar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: #0f172a;
+    color: white;
+}
+
+nav h2 {
+    color: #38bdf8;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #38bdf8;
+}
+
+        body {
+            font-family: Arial;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .card img {
+            width: 70px;
+            height: 70px;
+        }
+
+        .card h3 {
+            margin: 10px 0;
+        }
+
+        .btn {
+            background-color: black;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #333;
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+<nav>
+    <h2>PrepHive</h2>
+    <ul>
+        <li><a href="/1.html">Home</a></li>
+        <li><a href="/1.html#about">About us</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/admin/login" style="color: #fbbf24; font-weight: bold;">Admin</a></li>
+    </ul>
+</nav>
+
+<h1>Our Departments</h1>
+
+<div class="container">
+
+    <div class="card">
+        <img src="https://t3.ftcdn.net/jpg/03/20/72/66/360_F_320726662_XVxhHxXYGwXnBMkHRnEeHJ4hA6gH0DqN.jpg">
+        <h3>Information Science & Telecommunication</h3>
+        <p>Software,Communication & Networking</p>
+        <a href="/cse.html"><button class="btn">View Department</button></a>
+    </div>
+
+    <div class="card">
+        <img src="https://thumbs.dreamstime.com/b/design-can-be-used-as-logo-icon-as-complement-to-design-science-computer-logo-icon-design-125299381.jpg">
+        <h3>Computer Applications</h3>
+        <p>Web development,Computer architecture & Ai</p>
+        <a href="/ece.html"><button class="btn">View Department</button></a>
+    </div>
+
+    <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1048/1048949.png">
+        <h3>Information Technology Management</h3>
+        <p>Software management,Buisness IT & Data base </p>
+        <a href="/mech.html"><button class="btn">View Department</button></a>
+    </div>
+
+    <div class="card">
+        <img src="https://img.freepik.com/free-vector/atom-illustration-model-with-electrons-neutron-isolated_1284-53084.jpg?semt=ais_hybrid&w=740&q=80">
+        <h3>Data Science Management</h3>
+        <p>Machine learning & Data analytics</p>
+        <a href="/civil.html"><button class="btn">View Department</button></a>
+    </div>
+
+    <div class="card">
+        <img src="https://cdn.vectorstock.com/i/500p/20/80/computer-chip-icon-ai-technology-symbol-vector-56732080.jpg">
+        <h3>Computer Science</h3>
+        <p>Operating System & Cyber Security</p>
+        <a href="/ee.html"><button class="btn">View Department</button></a>
+    </div>
+
+    <div class="card">
+        <img src="https://e7.pngegg.com/pngimages/171/923/png-clipart-mit-mathematics-department-computer-icons-calculation-mathematics-blue-logo.png">
+        <h3>Mathematics</h3>
+        <p>Calculus & Numerics</p>
+        <a href="/it.html"><button class="btn">View Department</button></a>
+    </div>
+
+    <div class="card">
+        <img src="https://img.freepik.com/free-vector/atom-illustration-model-with-electrons-neutron-isolated_1284-53084.jpg?semt=ais_hybrid&w=740&q=80">
+        <h3>Physics</h3>
+        <p>Thermodynamics, Motion & Optics</p>
+        <a href="/it.html"><button class="btn">View Department</button></a>
+    </div>
+
+    <div class="card">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/014/422/979/small/chemistry-logo-template-illustration-free-vector.jpg">
+        <h3>Chemistry</h3>
+        <p>Bio chemistry, Matter and properties </p>
+        <a href="/it.html"><button class="btn">View Department</button></a>
+    </div>
+
+    <div class="card">
+        <img src="https://cdn.vectorstock.com/i/1000v/22/15/geology-logo-vector-48532215.jpg">
+        <h3>Geology</h3>
+        <p>Petrology & Earth Science</p>
+        <a href="/it.html"><button class="btn">View Department</button></a>
+    </div>
+
+</div>
+
+</body>
+</html>

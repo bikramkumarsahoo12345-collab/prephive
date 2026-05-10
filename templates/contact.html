@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - PrepHive</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Navbar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: #0f172a;
+    color: white;
+}
+
+nav h2 {
+    color: #38bdf8;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Main */
+.contact-wrapper {
+    display: flex;
+    padding: 50px;
+    gap: 40px;
+}
+
+/* LEFT */
+.contact-left {
+    width: 50%;
+}
+
+.contact-left h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.contact-left p {
+    margin-bottom: 15px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.contact-left img {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+/* RIGHT FORM */
+.contact-right {
+    width: 50%;
+}
+
+.form-box {
+    background: #f4f4f4;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.form-box label {
+    display: block;
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+.form-box input,
+.form-box textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.form-box textarea {
+    resize: none;
+    height: 100px;
+}
+
+.form-box input:focus,
+.form-box textarea:focus {
+    border-color: #38bdf8;
+}
+
+/* Button */
+.submit-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #38bdf8;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #0ea5e9;
+}
+
+.success-message {
+    margin-top: 15px;
+    color: #047857;
+    font-weight: bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+    <h2>PrepHive</h2>
+    <ul>
+        <li><a href="/1.html">Home</a></li>
+        <li><a href="/1.html#about">About us</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/admin/login" style="color: #fbbf24; font-weight: bold;">Admin</a></li>
+    </ul>
+</nav>
+
+<!-- Contact Section -->
+<div class="contact-wrapper">
+
+    <!-- LEFT -->
+    <div class="contact-left">
+        <h1>Contact Us</h1>
+
+        <p>
+            We are available for questions, feedback, or collaboration opportunities. 
+            Let us know how we can help!
+        </p>
+
+        <p>
+            You can also contact us at <strong>contact@prephive.com</strong> 
+            for any queries related to question papers or support.
+        </p>
+
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
+    </div>
+
+    <!-- RIGHT -->
+    <div class="contact-right">
+        <div class="form-box">
+
+            <form method="post" action="/contact.html">
+
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Your Name" required>
+
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Email" required>
+
+                <label>Phone Number</label>
+                <input type="text" name="phone" placeholder="Your Phone Number">
+
+                <label>Subject</label>
+                <input type="text" name="subject" placeholder="Subject">
+
+                <label>Message</label>
+                <textarea name="message" placeholder="Type your message here..."></textarea>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+
+            </form>
+            {% if message %}
+            <p class="success-message">{{ message }}</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

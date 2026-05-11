@@ -109,6 +109,27 @@ def query_papers(filters=None):
     return papers
 
 
+def get_paper(paper_id):
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM papers WHERE id = ?", (paper_id,))
+    paper = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    return paper
+
+
+def delete_uploaded_file(filename):
+    if not filename:
+        return
+    file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+    try:
+        if os.path.exists(file_path):
+            os.remove(file_path)
+    except OSError:
+        pass
+
+
 @app.route("/")
 def index():
     return redirect(url_for("home"))
@@ -212,7 +233,8 @@ def admin_dashboard():
     if not session.get("admin_logged_in"):
         return redirect(url_for("admin_login"))
     papers = query_papers()
-    return render_template("admin_dashboard.html", papers=papers)
+    message = request.args.get("message")
+    return render_template("admin_dashboard.html", papers=papers, message=message)
 
 
 @app.route("/admin/upload", methods=["GET", "POST"])
@@ -252,7 +274,88 @@ def admin_upload():
             conn.close()
             message = "Paper uploaded successfully."
 
-    return render_template("upload_paper.html", message=message, error=error)
+    return render_template(
+        "upload_paper.html",
+        message=message,
+        error=error,
+        form_action=url_for("admin_upload"),
+        is_edit=False,
+    )
+
+
+@app.route("/admin/edit/<int:paper_id>", methods=["GET", "POST"])
+def admin_edit(paper_id):
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin_login"))
+
+    paper_row = get_paper(paper_id)
+    if not paper_row:
+        return "Paper not found", 404
+
+    paper = dict(paper_row)
+    message = None
+    error = None
+
+    if request.method == "POST":
+        title = request.form.get("title")
+        subject = request.form.get("subject")
+        semester = request.form.get("semester")
+        department = request.form.get("department")
+        year = request.form.get("year")
+        file = request.files.get("pdf_file")
+        filename = paper["filename"]
+
+        if file and file.filename != "":
+            if not allowed_file(file.filename):
+                error = "Only PDF files are allowed."
+            else:
+                new_filename = secure_filename(file.filename)
+                timestamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+                stored_name = f"{timestamp}_{new_filename}"
+                file_path = os.path.join(app.config["UPLOAD_FOLDER"], stored_name)
+                file.save(file_path)
+                delete_uploaded_file(filename)
+                filename = stored_name
+
+        if not error:
+            conn = get_db()
+            cursor = conn.cursor()
+            cursor.execute(
+                "UPDATE papers SET title = ?, subject = ?, semester = ?, department = ?, year = ?, filename = ? WHERE id = ?",
+                (title, subject, semester, department, year, filename, paper_id),
+            )
+            conn.commit()
+            cursor.close()
+            conn.close()
+            return redirect(url_for("admin_dashboard", message="Paper updated successfully."))
+
+    return render_template(
+        "upload_paper.html",
+        paper=paper,
+        message=message,
+        error=error,
+        form_action=url_for("admin_edit", paper_id=paper_id),
+        is_edit=True,
+    )
+
+
+@app.route("/admin/delete/<int:paper_id>", methods=["POST"])
+def admin_delete(paper_id):
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin_login"))
+
+    paper_row = get_paper(paper_id)
+    if not paper_row:
+        return "Paper not found", 404
+
+    delete_uploaded_file(paper_row["filename"])
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM papers WHERE id = ?", (paper_id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return redirect(url_for("admin_dashboard", message="Paper deleted successfully."))
 
 
 @app.route("/papers")

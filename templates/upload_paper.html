@@ -89,26 +89,31 @@ main {
 </header>
 <main>
     <div class="form-card">
-        <form method="post" action="/admin/upload" enctype="multipart/form-data">
+        <form method="post" action="{{ form_action }}" enctype="multipart/form-data">
+            <h2>{{ 'Edit Question Paper' if is_edit else 'Upload Question Paper' }}</h2>
+
             <label>Title</label>
-            <input type="text" name="title" required>
+            <input type="text" name="title" value="{{ paper.title if paper else '' }}" required>
 
             <label>Subject</label>
-            <input type="text" name="subject" required>
+            <input type="text" name="subject" value="{{ paper.subject if paper else '' }}" required>
 
             <label>Semester</label>
-            <input type="text" name="semester" required>
+            <input type="text" name="semester" value="{{ paper.semester if paper else '' }}" required>
 
             <label>Department</label>
-            <input type="text" name="department" required>
+            <input type="text" name="department" value="{{ paper.department if paper else '' }}" required>
 
             <label>Year</label>
-            <input type="text" name="year" required>
+            <input type="text" name="year" value="{{ paper.year if paper else '' }}" required>
 
             <label>Upload PDF</label>
-            <input type="file" name="pdf_file" accept="application/pdf" required>
+            <input type="file" name="pdf_file" accept="application/pdf" {{ '' if is_edit else 'required' }}>
+            {% if is_edit %}
+            <p style="margin-top: 10px; color: #555;">Leave blank to keep the current file.</p>
+            {% endif %}
 
-            <button type="submit">Upload Paper</button>
+            <button type="submit">{{ 'Save Changes' if is_edit else 'Upload Paper' }}</button>
         </form>
         {% if message %}
         <p class="success-message">{{ message }}</p>
